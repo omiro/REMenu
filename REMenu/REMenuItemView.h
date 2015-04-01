@@ -36,6 +36,7 @@
 @property (strong, readwrite, nonatomic) UIImageView *imageView;
 @property (strong, readwrite, nonatomic) UILabel *badgeLabel;
 @property (strong, readwrite, nonatomic) REMenuItem *item;
+@property (strong, readwrite, nonatomic) UIImageView *accessoryImageView;   // eric added so we can insert arrow or other image on right side of cell
 
 - (id)initWithFrame:(CGRect)frame menu:(REMenu *)menu item:(REMenuItem*) item hasSubtitle:(BOOL)hasSubtitle;
 
