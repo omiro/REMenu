@@ -236,8 +236,10 @@
         [self.menuWrapperView addSubview:self.toolbar];
     }
     [self.menuWrapperView addSubview:self.menuView];
-    [self.containerView addSubview:self.backgroundButton];
     [self.containerView addSubview:self.menuWrapperView];
+    
+    // eric add the background button below the menuView so it will grab touches beneath the menu items
+    [self.menuWrapperView insertSubview:self.backgroundButton belowSubview:self.menuView];
     [view addSubview:self.containerView];
     
     if ([self.delegate respondsToSelector:@selector(willOpenMenu:)]) {
@@ -287,17 +289,17 @@
                               delay:0.0
                             options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseInOut
                          animations:^{
-            self.backgroundView.alpha = self.backgroundAlpha;
-            CGRect frame = self.menuView.frame;
+//            self.backgroundView.alpha = self.backgroundAlpha;
+            
+            CGRect frame = self.backgroundButton.frame;
             frame.origin.y = -40.0 - self.separatorHeight;
+            frame.size.height += -frame.origin.y;
             self.menuWrapperView.frame = frame;
+            self.menuWrapperView.backgroundColor = [UIColor whiteColor];
         } completion:^(BOOL finished) {
+            self.backgroundView.alpha = self.backgroundAlpha;
             self.isAnimating = NO;
-            if ([self.delegate respondsToSelector:@selector(didOpenMenu:)]) {
-                [self.delegate didOpenMenu:self];
-            }
-        }];
-    }
+        }];    }
 }
 
 - (void)showInView:(UIView *)view
