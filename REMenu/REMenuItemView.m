@@ -82,6 +82,8 @@
             label;
         });
 
+        _accessoryImageView = [[UIImageView alloc] initWithFrame:CGRectZero];   // eric init the indicator arrow
+        
         _imageView = [[UIImageView alloc] initWithFrame:CGRectNull];
         
         _badgeLabel = ({
@@ -101,6 +103,7 @@
         [self addSubview:_titleLabel];
         [self addSubview:_imageView];
         [self addSubview:_badgeLabel];
+        [self addSubview:_accessoryImageView];  // eric add indicator arrow to view
     }
     return self;
 }
@@ -166,6 +169,14 @@
     self.subtitleLabel.shadowColor = self.item.subtitleTextShadowColor == nil ? self.menu.subtitleTextShadowColor : self.item.subtitleTextShadowColor;
     self.subtitleLabel.shadowOffset = self.item.subtitleTextShadowOffset.width == 0 && self.item.subtitleTextShadowOffset.height == 0 ? self.menu.subtitleTextShadowOffset : self.item.subtitleTextShadowOffset;
     self.subtitleLabel.textAlignment = (NSInteger)self.item.subtitleTextAlignment == -1 ? self.menu.subtitleTextAlignment : self.item.subtitleTextAlignment;
+    
+    // eric update the accessory imageview's location
+    self.accessoryImageView.image = [UIImage imageNamed:@"ListCarrot"];
+    CGFloat xInset = 14.0f;
+    CGFloat xOrigin = (CGRectGetMaxX(self.superview.bounds) - (self.accessoryImageView.image.size.width + xInset));
+    CGFloat yOrigin = ((CGRectGetHeight(self.frame) - (self.accessoryImageView.image.size.height)) / 2);
+    CGRect frame = CGRectMake(xOrigin, yOrigin, self.accessoryImageView.image.size.width, self.accessoryImageView.image.size.height);
+    self.accessoryImageView.frame = frame;
     
     self.item.customView.frame = CGRectMake(0, 0, self.titleLabel.frame.size.width, self.frame.size.height);
 }
